@@ -46,13 +46,20 @@ public class Verificador {
                 + "Jigglypuff, Psyduck, Machop, Geodude, Gengar, Onix, Eevee, Snorlax, Articuno, "
                 + "Zapdos, Moltres, Dragonite, Mewtwo").equals(Ejercicios.concatenarNombres()));
 
-        String primeroOriginal = Ejercicios.nombres[0];
+        Pokemon[] p = Ejercicios.pokemones;
+        String primeroOriginal = p[0].nombre;
         String[] esperado = {"Articuno", "Bulbasaur", "Charmander", "Dragonite", "Eevee", "Gengar",
                 "Geodude", "Jigglypuff", "Machop", "Mewtwo", "Moltres", "Onix", "Pikachu",
                 "Psyduck", "Snorlax", "Squirtle", "Vulpix", "Zapdos"};
-        revisar("Ej 6  nombresOrdenados (sin cambiar el original)", 12,
-                mismosElementos(Ejercicios.nombresOrdenados(), esperado)
-                && Ejercicios.nombres[0].equals(primeroOriginal));
+        Pokemon[] ordenados = Ejercicios.ordenarPorNombre();
+        boolean ordenOk = ordenados != null && ordenados.length == esperado.length;
+        for (int i = 0; ordenOk && i < esperado.length; i++) {
+            ordenOk = ordenados[i] != null && esperado[i].equals(ordenados[i].nombre);
+        }
+        // El Pokémon completo debe moverse junto (no solo el nombre)
+        ordenOk = ordenOk && ordenados[0].numero == 144 && ordenados[17].hp == 90;
+        revisar("Ej 6  ordenarPorNombre (sin cambiar el original)", 12,
+                ordenOk && p[0].nombre.equals(primeroOriginal));
 
         revisar("Ej 7  primeroMasRapidoQue", 8,
                 "Pikachu".equals(Ejercicios.primeroMasRapidoQue(80))
@@ -76,12 +83,13 @@ public class Verificador {
                 && "Agua".equals(Ejercicios.debilidad("Roca"))
                 && "Desconocida".equals(Ejercicios.debilidad("Hada")));
 
-        int hpSnorlax = Ejercicios.hp[12];
+        int hpSnorlax = p[12].hp;
+        int hpOnix = p[10].hp;
         revisar("Ej 13 batalla", 10,
-                "Pikachu".equals(Ejercicios.batalla(3, 1))       // Pikachu vs Charmander
-                && "Snorlax".equals(Ejercicios.batalla(12, 10))  // Snorlax vs Onix
-                && "Snorlax".equals(Ejercicios.batalla(10, 12))  // Onix vs Snorlax
-                && Ejercicios.hp[12] == hpSnorlax);
+                "Pikachu".equals(Ejercicios.batalla(p[3], p[1]))       // Pikachu vs Charmander
+                && "Snorlax".equals(Ejercicios.batalla(p[12], p[10]))  // Snorlax vs Onix
+                && "Snorlax".equals(Ejercicios.batalla(p[10], p[12]))  // Onix vs Snorlax
+                && p[12].hp == hpSnorlax && p[10].hp == hpOnix);
 
         System.out.println("\nPuntaje automático: " + puntos + " / 88  (+12 pts de revisión visual)");
     }

@@ -7,6 +7,7 @@
  * Reglas:
  *  - NO usar Arrays.sort(), String.join(), ArrayList ni streams.
  *    (La idea es practicar ciclos y arrays "a mano".)
+ *  - No modificar los datos de los Pokémon.
  *  - Para comparar Strings usar equals() / compareTo(), nunca ==.
  *
  * Compilar y ejecutar:
@@ -18,34 +19,35 @@ public class Ejercicios {
 
     // =====================================================================
     // DATOS (NO MODIFICAR)
-    // Es la "lista JSON" de Pokémon guardada en arrays paralelos:
-    // la posición i de cada array corresponde al MISMO Pokémon.
-    //   Ej: nombres[0] = "Bulbasaur", tipos[0] = {"Planta", "Veneno"}, hp[0] = 45 ...
+    // Es la "lista JSON" de Pokémon: un array de objetos Pokemon.
+    // Cada Pokémon tiene: numero, nombre, tipos (array), hp, ataque, defensa,
+    // velocidad, habilidades (array) y legendario (true/false).
+    //
+    // Se leen con punto, igual que en JavaScript:
+    //    pokemones[0].nombre    -> "Bulbasaur"
+    //    pokemones[0].tipos[1]  -> "Veneno"
+    //    pokemones[0].hp        -> 45
     // =====================================================================
-    static int[] numeros = {1, 4, 7, 25, 37, 39, 54, 66, 74, 94, 95, 133, 143, 144, 145, 146, 149, 150};
-
-    static String[] nombres = {
-        "Bulbasaur", "Charmander", "Squirtle", "Pikachu", "Vulpix", "Jigglypuff",
-        "Psyduck", "Machop", "Geodude", "Gengar", "Onix", "Eevee",
-        "Snorlax", "Articuno", "Zapdos", "Moltres", "Dragonite", "Mewtwo"
-    };
-
-    // Cada Pokémon tiene 1 o 2 tipos (array de arrays)
-    static String[][] tipos = {
-        {"Planta", "Veneno"}, {"Fuego"}, {"Agua"}, {"Electrico"}, {"Fuego"}, {"Normal", "Hada"},
-        {"Agua"}, {"Lucha"}, {"Roca", "Tierra"}, {"Fantasma", "Veneno"}, {"Roca", "Tierra"}, {"Normal"},
-        {"Normal"}, {"Hielo", "Volador"}, {"Electrico", "Volador"}, {"Fuego", "Volador"},
-        {"Dragon", "Volador"}, {"Psiquico"}
-    };
-
-    static int[] hp        = { 45, 39, 44, 35, 38, 115, 50, 70,  40,  60,  35, 55, 160,  90,  90,  90,  91, 106};
-    static int[] ataque    = { 49, 52, 48, 55, 41,  45, 52, 80,  80,  65,  45, 55, 110,  85,  90, 100, 134, 110};
-    static int[] defensa   = { 49, 43, 65, 40, 40,  20, 48, 50, 100,  60, 160, 50,  65, 100,  85,  90,  95,  90};
-    static int[] velocidad = { 45, 65, 43, 90, 65,  20, 55, 35,  20, 110,  70, 55,  30,  85, 100,  90,  80, 130};
-
-    static boolean[] legendario = {
-        false, false, false, false, false, false, false, false, false,
-        false, false, false, false, true, true, true, false, true
+    static Pokemon[] pokemones = {
+        //          #    nombre        tipos                                 HP   ATQ  DEF  VEL  habilidades                                             legendario
+        new Pokemon(1,   "Bulbasaur",  new String[]{"Planta", "Veneno"},     45,  49,  49,  45, new String[]{"Espesura", "Clorofila"},                 false),
+        new Pokemon(4,   "Charmander", new String[]{"Fuego"},                39,  52,  43,  65, new String[]{"Mar Llamas", "Poder Solar"},             false),
+        new Pokemon(7,   "Squirtle",   new String[]{"Agua"},                 44,  48,  65,  43, new String[]{"Torrente", "Cura Lluvia"},               false),
+        new Pokemon(25,  "Pikachu",    new String[]{"Electrico"},            35,  55,  40,  90, new String[]{"Electricidad Estatica", "Pararrayos"},   false),
+        new Pokemon(37,  "Vulpix",     new String[]{"Fuego"},                38,  41,  40,  65, new String[]{"Absorbe Fuego"},                         false),
+        new Pokemon(39,  "Jigglypuff", new String[]{"Normal", "Hada"},      115,  45,  20,  20, new String[]{"Gran Encanto", "Tenacidad"},             false),
+        new Pokemon(54,  "Psyduck",    new String[]{"Agua"},                 50,  52,  48,  55, new String[]{"Humedad", "Aclimatacion"},               false),
+        new Pokemon(66,  "Machop",     new String[]{"Lucha"},                70,  80,  50,  35, new String[]{"Agallas", "Indefenso"},                  false),
+        new Pokemon(74,  "Geodude",    new String[]{"Roca", "Tierra"},       40,  80, 100,  20, new String[]{"Cabeza Roca", "Robustez"},               false),
+        new Pokemon(94,  "Gengar",     new String[]{"Fantasma", "Veneno"},   60,  65,  60, 110, new String[]{"Cuerpo Maldito"},                        false),
+        new Pokemon(95,  "Onix",       new String[]{"Roca", "Tierra"},       35,  45, 160,  70, new String[]{"Cabeza Roca", "Robustez"},               false),
+        new Pokemon(133, "Eevee",      new String[]{"Normal"},               55,  55,  50,  55, new String[]{"Fuga", "Adaptable"},                     false),
+        new Pokemon(143, "Snorlax",    new String[]{"Normal"},              160, 110,  65,  30, new String[]{"Inmunidad", "Sebo"},                     false),
+        new Pokemon(144, "Articuno",   new String[]{"Hielo", "Volador"},     90,  85, 100,  85, new String[]{"Presion"},                               true),
+        new Pokemon(145, "Zapdos",     new String[]{"Electrico", "Volador"}, 90,  90,  85, 100, new String[]{"Presion"},                               true),
+        new Pokemon(146, "Moltres",    new String[]{"Fuego", "Volador"},     90, 100,  90,  90, new String[]{"Presion"},                               true),
+        new Pokemon(149, "Dragonite",  new String[]{"Dragon", "Volador"},    91, 134,  95,  80, new String[]{"Foco Interno"},                          false),
+        new Pokemon(150, "Mewtwo",     new String[]{"Psiquico"},            106, 110,  90, 130, new String[]{"Presion"},                               true)
     };
 
 
@@ -61,11 +63,11 @@ public class Ejercicios {
     }
 
     // =====================================================================
-    // EJERCICIO 2 (8 pts) - Array de arrays + comparar Strings
+    // EJERCICIO 2 (8 pts) - Ciclos anidados + comparar Strings
     // Devuelve cuántos Pokémon tienen el tipo indicado (en cualquiera de sus tipos).
     //    contarPorTipo("Fuego")   -> 3
     //    contarPorTipo("Volador") -> 4
-    // Pista: tipos[i] es a su vez un array -> necesitas un ciclo dentro de otro.
+    // Pista: pokemones[i].tipos es a su vez un array -> necesitas un ciclo dentro de otro.
     // =====================================================================
     public static int contarPorTipo(String tipo) {
         // TODO
@@ -106,16 +108,19 @@ public class Ejercicios {
     }
 
     // =====================================================================
-    // EJERCICIO 6 (12 pts) - Ordenar alfabéticamente (sin Arrays.sort)
-    // Devuelve un NUEVO array con los nombres en orden alfabético.
-    // El array "nombres" original NO debe cambiar (primero cópialo).
-    //    -> {"Articuno", "Bulbasaur", "Charmander", "Dragonite", ...}
-    // Pista: método burbuja + compareTo():
-    //    a.compareTo(b) < 0  significa que "a" va antes que "b".
+    // EJERCICIO 6 (12 pts) - Ordenar objetos alfabéticamente (sin Arrays.sort)
+    // Devuelve un NUEVO array de Pokemon ordenado por nombre (A -> Z).
+    // El array "pokemones" original NO debe cambiar de orden (primero cópialo).
+    //    -> Articuno, Bulbasaur, Charmander, Dragonite, ...
+    // Pistas:
+    //  - Método burbuja comparando los nombres con compareTo():
+    //        a.compareTo(b) > 0  significa que "a" va DESPUÉS de "b".
+    //  - Al intercambiar, se intercambia el Pokémon COMPLETO, no solo el nombre:
+    //        Pokemon aux = copia[j];
     // =====================================================================
-    public static String[] nombresOrdenados() {
+    public static Pokemon[] ordenarPorNombre() {
         // TODO
-        return new String[0];
+        return new Pokemon[0];
     }
 
     // =====================================================================
@@ -132,7 +137,7 @@ public class Ejercicios {
     }
 
     // =====================================================================
-    // EJERCICIO 8 (7 pts) - Condicionales + largo de un array
+    // EJERCICIO 8 (7 pts) - Condicionales + largo de un array dentro de un objeto
     // Imprime SOLO los Pokémon que tienen DOS tipos, con este formato:
     //    Bulbasaur (Planta/Veneno)
     //    Jigglypuff (Normal/Hada)
@@ -204,21 +209,20 @@ public class Ejercicios {
 
     // =====================================================================
     // EJERCICIO 13 (10 pts) - DESAFÍO: Batalla Pokémon (while + condicionales)
-    // Recibe las POSICIONES de dos Pokémon (a y b) en los arrays.
-    // Simula una batalla por turnos y devuelve el NOMBRE del ganador.
+    // Recibe dos Pokémon (a y b). Simula una batalla por turnos y devuelve el NOMBRE del ganador.
     // Reglas:
     //  - Empieza el más rápido (si empatan en velocidad, empieza a).
     //  - En cada turno el atacante le quita al otro:
     //        daño = ataque del atacante - (defensa del defensor / 2)
     //    Si el daño es menor a 1, el daño es 1.
     //  - Se turnan hasta que el HP de alguno llegue a 0 o menos.
-    //  - Usa variables locales para el HP (el array hp NO se modifica).
+    //  - Usa variables locales para el HP (NO cambies a.hp ni b.hp).
     //  - Imprime cada turno, por ejemplo:
     //        Turno 1: Pikachu ataca a Charmander y le quita 34 HP (le quedan 5)
     //
-    //    batalla(3, 1)  (Pikachu vs Charmander) -> "Pikachu"
+    //    batalla(pokemones[3], pokemones[1])  (Pikachu vs Charmander) -> "Pikachu"
     // =====================================================================
-    public static String batalla(int a, int b) {
+    public static String batalla(Pokemon a, Pokemon b) {
         // TODO
         return "";
     }
@@ -245,9 +249,9 @@ public class Ejercicios {
         System.out.println(concatenarNombres());
 
         System.out.println("\n=== Ejercicio 6 ===");
-        String[] ordenados = nombresOrdenados();
+        Pokemon[] ordenados = ordenarPorNombre();
         for (int i = 0; i < ordenados.length; i++) {
-            System.out.println(ordenados[i]);
+            System.out.println(ordenados[i].nombre);
         }
 
         System.out.println("\n=== Ejercicio 7 ===");
@@ -276,6 +280,6 @@ public class Ejercicios {
         imprimirTabla();
 
         System.out.println("\n=== Ejercicio 13 ===");
-        System.out.println("Ganador: " + batalla(3, 1));
+        System.out.println("Ganador: " + batalla(pokemones[3], pokemones[1]));
     }
 }

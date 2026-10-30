@@ -6,51 +6,51 @@ public class Soluciones {
 
     // =====================================================================
     // DATOS (NO MODIFICAR)
-    // Es la "lista JSON" de Pokémon guardada en arrays paralelos:
-    // la posición i de cada array corresponde al MISMO Pokémon.
-    //   Ej: nombres[0] = "Bulbasaur", tipos[0] = {"Planta", "Veneno"}, hp[0] = 45 ...
+    // Es la "lista JSON" de Pokémon: un array de objetos Pokemon.
+    // Cada Pokémon tiene: numero, nombre, tipos (array), hp, ataque, defensa,
+    // velocidad, habilidades (array) y legendario (true/false).
+    //
+    // Se leen con punto, igual que en JavaScript:
+    //    pokemones[0].nombre    -> "Bulbasaur"
+    //    pokemones[0].tipos[1]  -> "Veneno"
+    //    pokemones[0].hp        -> 45
     // =====================================================================
-    static int[] numeros = {1, 4, 7, 25, 37, 39, 54, 66, 74, 94, 95, 133, 143, 144, 145, 146, 149, 150};
-
-    static String[] nombres = {
-        "Bulbasaur", "Charmander", "Squirtle", "Pikachu", "Vulpix", "Jigglypuff",
-        "Psyduck", "Machop", "Geodude", "Gengar", "Onix", "Eevee",
-        "Snorlax", "Articuno", "Zapdos", "Moltres", "Dragonite", "Mewtwo"
+    static Pokemon[] pokemones = {
+        //          #    nombre        tipos                                 HP   ATQ  DEF  VEL  habilidades                                             legendario
+        new Pokemon(1,   "Bulbasaur",  new String[]{"Planta", "Veneno"},     45,  49,  49,  45, new String[]{"Espesura", "Clorofila"},                 false),
+        new Pokemon(4,   "Charmander", new String[]{"Fuego"},                39,  52,  43,  65, new String[]{"Mar Llamas", "Poder Solar"},             false),
+        new Pokemon(7,   "Squirtle",   new String[]{"Agua"},                 44,  48,  65,  43, new String[]{"Torrente", "Cura Lluvia"},               false),
+        new Pokemon(25,  "Pikachu",    new String[]{"Electrico"},            35,  55,  40,  90, new String[]{"Electricidad Estatica", "Pararrayos"},   false),
+        new Pokemon(37,  "Vulpix",     new String[]{"Fuego"},                38,  41,  40,  65, new String[]{"Absorbe Fuego"},                         false),
+        new Pokemon(39,  "Jigglypuff", new String[]{"Normal", "Hada"},      115,  45,  20,  20, new String[]{"Gran Encanto", "Tenacidad"},             false),
+        new Pokemon(54,  "Psyduck",    new String[]{"Agua"},                 50,  52,  48,  55, new String[]{"Humedad", "Aclimatacion"},               false),
+        new Pokemon(66,  "Machop",     new String[]{"Lucha"},                70,  80,  50,  35, new String[]{"Agallas", "Indefenso"},                  false),
+        new Pokemon(74,  "Geodude",    new String[]{"Roca", "Tierra"},       40,  80, 100,  20, new String[]{"Cabeza Roca", "Robustez"},               false),
+        new Pokemon(94,  "Gengar",     new String[]{"Fantasma", "Veneno"},   60,  65,  60, 110, new String[]{"Cuerpo Maldito"},                        false),
+        new Pokemon(95,  "Onix",       new String[]{"Roca", "Tierra"},       35,  45, 160,  70, new String[]{"Cabeza Roca", "Robustez"},               false),
+        new Pokemon(133, "Eevee",      new String[]{"Normal"},               55,  55,  50,  55, new String[]{"Fuga", "Adaptable"},                     false),
+        new Pokemon(143, "Snorlax",    new String[]{"Normal"},              160, 110,  65,  30, new String[]{"Inmunidad", "Sebo"},                     false),
+        new Pokemon(144, "Articuno",   new String[]{"Hielo", "Volador"},     90,  85, 100,  85, new String[]{"Presion"},                               true),
+        new Pokemon(145, "Zapdos",     new String[]{"Electrico", "Volador"}, 90,  90,  85, 100, new String[]{"Presion"},                               true),
+        new Pokemon(146, "Moltres",    new String[]{"Fuego", "Volador"},     90, 100,  90,  90, new String[]{"Presion"},                               true),
+        new Pokemon(149, "Dragonite",  new String[]{"Dragon", "Volador"},    91, 134,  95,  80, new String[]{"Foco Interno"},                          false),
+        new Pokemon(150, "Mewtwo",     new String[]{"Psiquico"},            106, 110,  90, 130, new String[]{"Presion"},                               true)
     };
-
-    // Cada Pokémon tiene 1 o 2 tipos (array de arrays)
-    static String[][] tipos = {
-        {"Planta", "Veneno"}, {"Fuego"}, {"Agua"}, {"Electrico"}, {"Fuego"}, {"Normal", "Hada"},
-        {"Agua"}, {"Lucha"}, {"Roca", "Tierra"}, {"Fantasma", "Veneno"}, {"Roca", "Tierra"}, {"Normal"},
-        {"Normal"}, {"Hielo", "Volador"}, {"Electrico", "Volador"}, {"Fuego", "Volador"},
-        {"Dragon", "Volador"}, {"Psiquico"}
-    };
-
-    static int[] hp        = { 45, 39, 44, 35, 38, 115, 50, 70,  40,  60,  35, 55, 160,  90,  90,  90,  91, 106};
-    static int[] ataque    = { 49, 52, 48, 55, 41,  45, 52, 80,  80,  65,  45, 55, 110,  85,  90, 100, 134, 110};
-    static int[] defensa   = { 49, 43, 65, 40, 40,  20, 48, 50, 100,  60, 160, 50,  65, 100,  85,  90,  95,  90};
-    static int[] velocidad = { 45, 65, 43, 90, 65,  20, 55, 35,  20, 110,  70, 55,  30,  85, 100,  90,  80, 130};
-
-    static boolean[] legendario = {
-        false, false, false, false, false, false, false, false, false,
-        false, false, false, false, true, true, true, false, true
-    };
-
 
 
     // EJERCICIO 1
     public static void listarNombres() {
-        for (int i = 0; i < nombres.length; i++) {
-            System.out.println((i + 1) + ". " + nombres[i]);
+        for (int i = 0; i < pokemones.length; i++) {
+            System.out.println((i + 1) + ". " + pokemones[i].nombre);
         }
     }
 
     // EJERCICIO 2
     public static int contarPorTipo(String tipo) {
         int contador = 0;
-        for (int i = 0; i < tipos.length; i++) {
-            for (int j = 0; j < tipos[i].length; j++) {
-                if (tipos[i][j].equals(tipo)) {
+        for (int i = 0; i < pokemones.length; i++) {
+            for (int j = 0; j < pokemones[i].tipos.length; j++) {
+                if (pokemones[i].tipos[j].equals(tipo)) {
                     contador++;
                 }
             }
@@ -60,30 +60,30 @@ public class Soluciones {
 
     // EJERCICIO 3
     public static String masFuerte() {
-        int posMayor = 0;
-        for (int i = 1; i < ataque.length; i++) {
-            if (ataque[i] > ataque[posMayor]) {
-                posMayor = i;
+        Pokemon mayor = pokemones[0];
+        for (int i = 1; i < pokemones.length; i++) {
+            if (pokemones[i].ataque > mayor.ataque) {
+                mayor = pokemones[i];
             }
         }
-        return nombres[posMayor];
+        return mayor.nombre;
     }
 
     // EJERCICIO 4
     public static double promedioHp() {
         int suma = 0;
-        for (int i = 0; i < hp.length; i++) {
-            suma += hp[i];
+        for (int i = 0; i < pokemones.length; i++) {
+            suma += pokemones[i].hp;
         }
-        return (double) suma / hp.length;
+        return (double) suma / pokemones.length;
     }
 
     // EJERCICIO 5
     public static String concatenarNombres() {
         String resultado = "";
-        for (int i = 0; i < nombres.length; i++) {
-            resultado += nombres[i];
-            if (i < nombres.length - 1) {
+        for (int i = 0; i < pokemones.length; i++) {
+            resultado += pokemones[i].nombre;
+            if (i < pokemones.length - 1) {
                 resultado += ", ";
             }
         }
@@ -91,15 +91,15 @@ public class Soluciones {
     }
 
     // EJERCICIO 6 (método burbuja)
-    public static String[] nombresOrdenados() {
-        String[] copia = new String[nombres.length];
-        for (int i = 0; i < nombres.length; i++) {
-            copia[i] = nombres[i];
+    public static Pokemon[] ordenarPorNombre() {
+        Pokemon[] copia = new Pokemon[pokemones.length];
+        for (int i = 0; i < pokemones.length; i++) {
+            copia[i] = pokemones[i];
         }
         for (int i = 0; i < copia.length - 1; i++) {
             for (int j = 0; j < copia.length - 1 - i; j++) {
-                if (copia[j].compareTo(copia[j + 1]) > 0) {
-                    String aux = copia[j];
+                if (copia[j].nombre.compareTo(copia[j + 1].nombre) > 0) {
+                    Pokemon aux = copia[j];
                     copia[j] = copia[j + 1];
                     copia[j + 1] = aux;
                 }
@@ -111,9 +111,9 @@ public class Soluciones {
     // EJERCICIO 7
     public static String primeroMasRapidoQue(int minimo) {
         int i = 0;
-        while (i < velocidad.length) {
-            if (velocidad[i] > minimo) {
-                return nombres[i];
+        while (i < pokemones.length) {
+            if (pokemones[i].velocidad > minimo) {
+                return pokemones[i].nombre;
             }
             i++;
         }
@@ -123,9 +123,10 @@ public class Soluciones {
     // EJERCICIO 8
     public static int listarDobleTipo() {
         int contador = 0;
-        for (int i = 0; i < nombres.length; i++) {
-            if (tipos[i].length == 2) {
-                System.out.println(nombres[i] + " (" + tipos[i][0] + "/" + tipos[i][1] + ")");
+        for (int i = 0; i < pokemones.length; i++) {
+            Pokemon p = pokemones[i];
+            if (p.tipos.length == 2) {
+                System.out.println(p.nombre + " (" + p.tipos[0] + "/" + p.tipos[1] + ")");
                 contador++;
             }
         }
@@ -135,16 +136,16 @@ public class Soluciones {
     // EJERCICIO 9
     public static String[] legendarios() {
         int cantidad = 0;
-        for (int i = 0; i < legendario.length; i++) {
-            if (legendario[i]) {
+        for (int i = 0; i < pokemones.length; i++) {
+            if (pokemones[i].legendario) {
                 cantidad++;
             }
         }
         String[] resultado = new String[cantidad];
         int pos = 0;
-        for (int i = 0; i < legendario.length; i++) {
-            if (legendario[i]) {
-                resultado[pos] = nombres[i];
+        for (int i = 0; i < pokemones.length; i++) {
+            if (pokemones[i].legendario) {
+                resultado[pos] = pokemones[i].nombre;
                 pos++;
             }
         }
@@ -193,26 +194,27 @@ public class Soluciones {
     // EJERCICIO 12
     public static void imprimirTabla() {
         System.out.printf("%-4s %-12s %-4s %-4s %s%n", "#", "Nombre", "HP", "ATQ", "TOTAL");
-        for (int i = 0; i < nombres.length; i++) {
-            int total = hp[i] + ataque[i] + defensa[i] + velocidad[i];
-            System.out.printf("%-4d %-12s %-4d %-4d %d%n", numeros[i], nombres[i], hp[i], ataque[i], total);
+        for (int i = 0; i < pokemones.length; i++) {
+            Pokemon p = pokemones[i];
+            int total = p.hp + p.ataque + p.defensa + p.velocidad;
+            System.out.printf("%-4d %-12s %-4d %-4d %d%n", p.numero, p.nombre, p.hp, p.ataque, total);
         }
     }
 
     // EJERCICIO 13
-    public static String batalla(int a, int b) {
-        int atacante = a;
-        int defensor = b;
-        if (velocidad[b] > velocidad[a]) {
+    public static String batalla(Pokemon a, Pokemon b) {
+        Pokemon atacante = a;
+        Pokemon defensor = b;
+        if (b.velocidad > a.velocidad) {
             atacante = b;
             defensor = a;
         }
-        int hpAtacante = hp[atacante];
-        int hpDefensor = hp[defensor];
+        int hpAtacante = atacante.hp;
+        int hpDefensor = defensor.hp;
         int turno = 1;
 
         while (hpAtacante > 0 && hpDefensor > 0) {
-            int dano = ataque[atacante] - defensa[defensor] / 2;
+            int dano = atacante.ataque - defensor.defensa / 2;
             if (dano < 1) {
                 dano = 1;
             }
@@ -221,24 +223,25 @@ public class Soluciones {
             if (quedan < 0) {
                 quedan = 0;
             }
-            System.out.println("Turno " + turno + ": " + nombres[atacante] + " ataca a "
-                    + nombres[defensor] + " y le quita " + dano + " HP (le quedan " + quedan + ")");
+            System.out.println("Turno " + turno + ": " + atacante.nombre + " ataca a "
+                    + defensor.nombre + " y le quita " + dano + " HP (le quedan " + quedan + ")");
 
             if (hpDefensor <= 0) {
-                return nombres[atacante];
+                return atacante.nombre;
             }
 
             // Intercambiar roles para el siguiente turno
-            int aux = atacante;
+            Pokemon auxPokemon = atacante;
             atacante = defensor;
-            defensor = aux;
-            aux = hpAtacante;
+            defensor = auxPokemon;
+            int auxHp = hpAtacante;
             hpAtacante = hpDefensor;
-            hpDefensor = aux;
+            hpDefensor = auxHp;
             turno++;
         }
-        return nombres[atacante];
+        return atacante.nombre;
     }
+
     // =====================================================================
     // Programa principal: ejecuta todos los ejercicios (NO es necesario modificarlo)
     // =====================================================================
@@ -260,9 +263,9 @@ public class Soluciones {
         System.out.println(concatenarNombres());
 
         System.out.println("\n=== Ejercicio 6 ===");
-        String[] ordenados = nombresOrdenados();
+        Pokemon[] ordenados = ordenarPorNombre();
         for (int i = 0; i < ordenados.length; i++) {
-            System.out.println(ordenados[i]);
+            System.out.println(ordenados[i].nombre);
         }
 
         System.out.println("\n=== Ejercicio 7 ===");
@@ -291,6 +294,6 @@ public class Soluciones {
         imprimirTabla();
 
         System.out.println("\n=== Ejercicio 13 ===");
-        System.out.println("Ganador: " + batalla(3, 1));
+        System.out.println("Ganador: " + batalla(pokemones[3], pokemones[1]));
     }
 }

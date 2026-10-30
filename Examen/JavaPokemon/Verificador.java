@@ -30,34 +30,45 @@ public class Verificador {
         return true;
     }
 
+    static Pokemon buscar(String nombre) {
+        for (int i = 0; i < Ejercicios.pokemones.length; i++) {
+            if (Ejercicios.pokemones[i].nombre.equals(nombre)) {
+                return Ejercicios.pokemones[i];
+            }
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         System.out.println("Ejercicios 1 y 12: revisar visualmente con 'java Ejercicios' (12 pts)\n");
 
         revisar("Ej 2  contarPorTipo", 8,
-                Ejercicios.contarPorTipo("Fuego") == 3
-                && Ejercicios.contarPorTipo("Volador") == 4
-                && Ejercicios.contarPorTipo("Acero") == 0);
+                Ejercicios.contarPorTipo("Fuego") == 4
+                && Ejercicios.contarPorTipo("Volador") == 7
+                && Ejercicios.contarPorTipo("Siniestro") == 0);
 
         revisar("Ej 3  masFuerte", 8, "Dragonite".equals(Ejercicios.masFuerte()));
 
-        revisar("Ej 4  promedioHp", 6, Math.abs(Ejercicios.promedioHp() - 1253.0 / 18) < 0.0001);
+        revisar("Ej 4  promedioHp", 6, Math.abs(Ejercicios.promedioHp() - 63.6) < 0.0001);
 
-        revisar("Ej 5  concatenarNombres", 8, ("Bulbasaur, Charmander, Squirtle, Pikachu, Vulpix, "
-                + "Jigglypuff, Psyduck, Machop, Geodude, Gengar, Onix, Eevee, Snorlax, Articuno, "
-                + "Zapdos, Moltres, Dragonite, Mewtwo").equals(Ejercicios.concatenarNombres()));
+        revisar("Ej 5  concatenarNombres", 8, ("Bulbasaur, Charmander, Squirtle, Pidgey, Ekans, Pikachu, "
+                + "Sandshrew, Vulpix, Jigglypuff, Meowth, Psyduck, Growlithe, Abra, Machop, Tentacool, "
+                + "Geodude, Magnemite, Gengar, Onix, Cubone, Scyther, Gyarados, Lapras, Eevee, Snorlax, "
+                + "Articuno, Zapdos, Moltres, Dragonite, Mewtwo").equals(Ejercicios.concatenarNombres()));
 
         Pokemon[] p = Ejercicios.pokemones;
         String primeroOriginal = p[0].nombre;
-        String[] esperado = {"Articuno", "Bulbasaur", "Charmander", "Dragonite", "Eevee", "Gengar",
-                "Geodude", "Jigglypuff", "Machop", "Mewtwo", "Moltres", "Onix", "Pikachu",
-                "Psyduck", "Snorlax", "Squirtle", "Vulpix", "Zapdos"};
+        String[] esperado = {"Abra", "Articuno", "Bulbasaur", "Charmander", "Cubone", "Dragonite",
+                "Eevee", "Ekans", "Gengar", "Geodude", "Growlithe", "Gyarados", "Jigglypuff", "Lapras",
+                "Machop", "Magnemite", "Meowth", "Mewtwo", "Moltres", "Onix", "Pidgey", "Pikachu",
+                "Psyduck", "Sandshrew", "Scyther", "Snorlax", "Squirtle", "Tentacool", "Vulpix", "Zapdos"};
         Pokemon[] ordenados = Ejercicios.ordenarPorNombre();
         boolean ordenOk = ordenados != null && ordenados.length == esperado.length;
         for (int i = 0; ordenOk && i < esperado.length; i++) {
             ordenOk = ordenados[i] != null && esperado[i].equals(ordenados[i].nombre);
         }
         // El Pokémon completo debe moverse junto (no solo el nombre)
-        ordenOk = ordenOk && ordenados[0].numero == 144 && ordenados[17].hp == 90;
+        ordenOk = ordenOk && ordenados[0].numero == 63 && ordenados[29].hp == 90;
         revisar("Ej 6  ordenarPorNombre (sin cambiar el original)", 12,
                 ordenOk && p[0].nombre.equals(primeroOriginal));
 
@@ -65,7 +76,7 @@ public class Verificador {
                 "Pikachu".equals(Ejercicios.primeroMasRapidoQue(80))
                 && "Ninguno".equals(Ejercicios.primeroMasRapidoQue(200)));
 
-        revisar("Ej 8  listarDobleTipo (cantidad)", 7, Ejercicios.listarDobleTipo() == 9);
+        revisar("Ej 8  listarDobleTipo (cantidad)", 7, Ejercicios.listarDobleTipo() == 15);
 
         revisar("Ej 9  legendarios", 7, mismosElementos(Ejercicios.legendarios(),
                 new String[]{"Articuno", "Zapdos", "Moltres", "Mewtwo"}));
@@ -83,13 +94,17 @@ public class Verificador {
                 && "Agua".equals(Ejercicios.debilidad("Roca"))
                 && "Desconocida".equals(Ejercicios.debilidad("Hada")));
 
-        int hpSnorlax = p[12].hp;
-        int hpOnix = p[10].hp;
+        Pokemon pikachu = buscar("Pikachu");
+        Pokemon charmander = buscar("Charmander");
+        Pokemon snorlax = buscar("Snorlax");
+        Pokemon onix = buscar("Onix");
+        int hpSnorlax = snorlax.hp;
+        int hpOnix = onix.hp;
         revisar("Ej 13 batalla", 10,
-                "Pikachu".equals(Ejercicios.batalla(p[3], p[1]))       // Pikachu vs Charmander
-                && "Snorlax".equals(Ejercicios.batalla(p[12], p[10]))  // Snorlax vs Onix
-                && "Snorlax".equals(Ejercicios.batalla(p[10], p[12]))  // Onix vs Snorlax
-                && p[12].hp == hpSnorlax && p[10].hp == hpOnix);
+                "Pikachu".equals(Ejercicios.batalla(pikachu, charmander))
+                && "Snorlax".equals(Ejercicios.batalla(snorlax, onix))
+                && "Snorlax".equals(Ejercicios.batalla(onix, snorlax))
+                && snorlax.hp == hpSnorlax && onix.hp == hpOnix);
 
         System.out.println("\nPuntaje automático: " + puntos + " / 88  (+12 pts de revisión visual)");
     }

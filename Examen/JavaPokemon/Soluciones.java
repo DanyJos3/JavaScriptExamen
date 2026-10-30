@@ -16,25 +16,37 @@ public class Soluciones {
     //    pokemones[0].hp        -> 45
     // =====================================================================
     static Pokemon[] pokemones = {
-        //          #    nombre        tipos                                 HP   ATQ  DEF  VEL  habilidades                                             legendario
-        new Pokemon(1,   "Bulbasaur",  new String[]{"Planta", "Veneno"},     45,  49,  49,  45, new String[]{"Espesura", "Clorofila"},                 false),
-        new Pokemon(4,   "Charmander", new String[]{"Fuego"},                39,  52,  43,  65, new String[]{"Mar Llamas", "Poder Solar"},             false),
-        new Pokemon(7,   "Squirtle",   new String[]{"Agua"},                 44,  48,  65,  43, new String[]{"Torrente", "Cura Lluvia"},               false),
-        new Pokemon(25,  "Pikachu",    new String[]{"Electrico"},            35,  55,  40,  90, new String[]{"Electricidad Estatica", "Pararrayos"},   false),
-        new Pokemon(37,  "Vulpix",     new String[]{"Fuego"},                38,  41,  40,  65, new String[]{"Absorbe Fuego"},                         false),
-        new Pokemon(39,  "Jigglypuff", new String[]{"Normal", "Hada"},      115,  45,  20,  20, new String[]{"Gran Encanto", "Tenacidad"},             false),
-        new Pokemon(54,  "Psyduck",    new String[]{"Agua"},                 50,  52,  48,  55, new String[]{"Humedad", "Aclimatacion"},               false),
-        new Pokemon(66,  "Machop",     new String[]{"Lucha"},                70,  80,  50,  35, new String[]{"Agallas", "Indefenso"},                  false),
-        new Pokemon(74,  "Geodude",    new String[]{"Roca", "Tierra"},       40,  80, 100,  20, new String[]{"Cabeza Roca", "Robustez"},               false),
-        new Pokemon(94,  "Gengar",     new String[]{"Fantasma", "Veneno"},   60,  65,  60, 110, new String[]{"Cuerpo Maldito"},                        false),
-        new Pokemon(95,  "Onix",       new String[]{"Roca", "Tierra"},       35,  45, 160,  70, new String[]{"Cabeza Roca", "Robustez"},               false),
-        new Pokemon(133, "Eevee",      new String[]{"Normal"},               55,  55,  50,  55, new String[]{"Fuga", "Adaptable"},                     false),
-        new Pokemon(143, "Snorlax",    new String[]{"Normal"},              160, 110,  65,  30, new String[]{"Inmunidad", "Sebo"},                     false),
-        new Pokemon(144, "Articuno",   new String[]{"Hielo", "Volador"},     90,  85, 100,  85, new String[]{"Presion"},                               true),
-        new Pokemon(145, "Zapdos",     new String[]{"Electrico", "Volador"}, 90,  90,  85, 100, new String[]{"Presion"},                               true),
-        new Pokemon(146, "Moltres",    new String[]{"Fuego", "Volador"},     90, 100,  90,  90, new String[]{"Presion"},                               true),
-        new Pokemon(149, "Dragonite",  new String[]{"Dragon", "Volador"},    91, 134,  95,  80, new String[]{"Foco Interno"},                          false),
-        new Pokemon(150, "Mewtwo",     new String[]{"Psiquico"},            106, 110,  90, 130, new String[]{"Presion"},                               true)
+        //          #    nombre        tipos                                   HP  ATQ  DEF  VEL  habilidades                                              legendario
+        new Pokemon(1,   "Bulbasaur",  new String[]{"Planta", "Veneno"},       45,  49,  49,  45, new String[]{"Espesura", "Clorofila"},                   false),
+        new Pokemon(4,   "Charmander", new String[]{"Fuego"},                  39,  52,  43,  65, new String[]{"Mar Llamas", "Poder Solar"},               false),
+        new Pokemon(7,   "Squirtle",   new String[]{"Agua"},                   44,  48,  65,  43, new String[]{"Torrente", "Cura Lluvia"},                 false),
+        new Pokemon(16,  "Pidgey",     new String[]{"Normal", "Volador"},      40,  45,  40,  56, new String[]{"Vista Lince", "Tumbos"},                   false),
+        new Pokemon(23,  "Ekans",      new String[]{"Veneno"},                 35,  60,  44,  55, new String[]{"Intimidacion", "Mudar"},                   false),
+        new Pokemon(25,  "Pikachu",    new String[]{"Electrico"},              35,  55,  40,  90, new String[]{"Electricidad Estatica", "Pararrayos"},     false),
+        new Pokemon(27,  "Sandshrew",  new String[]{"Tierra"},                 50,  75,  85,  40, new String[]{"Velo Arena"},                              false),
+        new Pokemon(37,  "Vulpix",     new String[]{"Fuego"},                  38,  41,  40,  65, new String[]{"Absorbe Fuego"},                           false),
+        new Pokemon(39,  "Jigglypuff", new String[]{"Normal", "Hada"},        115,  45,  20,  20, new String[]{"Gran Encanto", "Tenacidad"},               false),
+        new Pokemon(52,  "Meowth",     new String[]{"Normal"},                 40,  45,  35,  90, new String[]{"Recogida", "Experto"},                     false),
+        new Pokemon(54,  "Psyduck",    new String[]{"Agua"},                   50,  52,  48,  55, new String[]{"Humedad", "Aclimatacion"},                 false),
+        new Pokemon(58,  "Growlithe",  new String[]{"Fuego"},                  55,  70,  45,  60, new String[]{"Intimidacion", "Absorbe Fuego"},           false),
+        new Pokemon(63,  "Abra",       new String[]{"Psiquico"},               25,  20,  15,  90, new String[]{"Sincronia", "Foco Interno"},               false),
+        new Pokemon(66,  "Machop",     new String[]{"Lucha"},                  70,  80,  50,  35, new String[]{"Agallas", "Indefenso"},                    false),
+        new Pokemon(72,  "Tentacool",  new String[]{"Agua", "Veneno"},         40,  40,  35,  70, new String[]{"Cuerpo Puro", "Lodo Liquido"},             false),
+        new Pokemon(74,  "Geodude",    new String[]{"Roca", "Tierra"},         40,  80, 100,  20, new String[]{"Cabeza Roca", "Robustez"},                 false),
+        new Pokemon(81,  "Magnemite",  new String[]{"Electrico", "Acero"},     25,  35,  70,  45, new String[]{"Iman", "Robustez"},                        false),
+        new Pokemon(94,  "Gengar",     new String[]{"Fantasma", "Veneno"},     60,  65,  60, 110, new String[]{"Cuerpo Maldito"},                          false),
+        new Pokemon(95,  "Onix",       new String[]{"Roca", "Tierra"},         35,  45, 160,  70, new String[]{"Cabeza Roca", "Robustez"},                 false),
+        new Pokemon(104, "Cubone",     new String[]{"Tierra"},                 50,  50,  95,  35, new String[]{"Cabeza Roca", "Pararrayos"},               false),
+        new Pokemon(123, "Scyther",    new String[]{"Bicho", "Volador"},       70, 110,  80, 105, new String[]{"Enjambre", "Experto"},                     false),
+        new Pokemon(130, "Gyarados",   new String[]{"Agua", "Volador"},        95, 125,  79,  81, new String[]{"Intimidacion"},                            false),
+        new Pokemon(131, "Lapras",     new String[]{"Agua", "Hielo"},         130,  85,  80,  60, new String[]{"Absorbe Agua", "Caparazon"},               false),
+        new Pokemon(133, "Eevee",      new String[]{"Normal"},                 55,  55,  50,  55, new String[]{"Fuga", "Adaptable"},                       false),
+        new Pokemon(143, "Snorlax",    new String[]{"Normal"},                160, 110,  65,  30, new String[]{"Inmunidad", "Sebo"},                       false),
+        new Pokemon(144, "Articuno",   new String[]{"Hielo", "Volador"},       90,  85, 100,  85, new String[]{"Presion"},                                 true),
+        new Pokemon(145, "Zapdos",     new String[]{"Electrico", "Volador"},   90,  90,  85, 100, new String[]{"Presion"},                                 true),
+        new Pokemon(146, "Moltres",    new String[]{"Fuego", "Volador"},       90, 100,  90,  90, new String[]{"Presion"},                                 true),
+        new Pokemon(149, "Dragonite",  new String[]{"Dragon", "Volador"},      91, 134,  95,  80, new String[]{"Foco Interno"},                            false),
+        new Pokemon(150, "Mewtwo",     new String[]{"Psiquico"},              106, 110,  90, 130, new String[]{"Presion"},                                 true)
     };
 
 
@@ -294,6 +306,6 @@ public class Soluciones {
         imprimirTabla();
 
         System.out.println("\n=== Ejercicio 13 ===");
-        System.out.println("Ganador: " + batalla(pokemones[3], pokemones[1]));
+        System.out.println("Ganador: " + batalla(pokemones[5], pokemones[1]));
     }
 }

@@ -23,7 +23,28 @@ Los estudiantes **usan** los objetos, pero no tienen que **crear** clases: `Poke
 | `Verificador.java` | Estudiante / Profesor | Corrige automáticamente y muestra el puntaje. |
 | `Soluciones.java` | **Solo profesor** | Soluciones. **Bórralo antes de entregar la prueba.** |
 
-## Cómo ejecutar
+## Archivo para el estudiante
+
+**`estudiante/Ejercicios.java`** es lo único que hay que entregarle al estudiante. Es un solo archivo con las instrucciones, los datos, la ficha `Pokemon` y los 13 enunciados. No trae soluciones ni el verificador.
+
+El estudiante lo compila y ejecuta así:
+
+```bash
+javac -encoding UTF-8 Ejercicios.java
+java Ejercicios
+```
+
+### Cómo corregir lo que entrega el estudiante
+
+Pon el `Ejercicios.java` del estudiante en una carpeta aparte, junto con `Verificador.java` **solamente** (sin `Pokemon.java`, porque la ficha ya viene dentro del archivo del estudiante):
+
+```bash
+javac -encoding UTF-8 Ejercicios.java Verificador.java
+java Verificador     # puntaje automático
+java Ejercicios      # para revisar a mano los ejercicios 1 y 12
+```
+
+## Cómo ejecutar (carpeta del profesor)
 
 ```bash
 javac -encoding UTF-8 *.java
